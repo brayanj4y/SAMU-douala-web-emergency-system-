@@ -32,6 +32,18 @@ Open ``index.html`` in a browser to view the application.
 
 Contributions are welcome! Feel free to fork the repository, create a branch, and submit a pull request.
 
+## 📞 Contact the Developer
+
+Have questions or suggestions? Feel free to reach out!
+
+- **Email:** [souopsylvain@gmail.com](mailto:souopsylvain@gmail.com)
+- **GitHub:** [github.com/brayanj4y](https://github.com/brayanj4y)
+- **LinkedIn:** [linkedin.com/in/brayanj4y](https://linkedin.com/in/brayanj4y)
+
+I’d love to hear your feedback and ideas. Let's build something great together!
+Thank you for helping improve this project! Your contributions are appreciated. 🎉
+
+
 ## Acknowledgments
 
 This project was developed by Souop Silvain Brayan```(ME)``` as part of a class exercise to explore real-world applications of web development.
