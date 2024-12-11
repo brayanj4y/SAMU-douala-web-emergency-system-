@@ -1,0 +1,2039 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SAMU D'la | Safety for all</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Boxicons CSS -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: #f8f9fa;
+            overflow-y: auto;
+            border-right: 1px solid #dee2e6;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .section,
+        .sub-section {
+            display: none;
+        }
+
+        .section.active,
+        .sub-section.active {
+            display: block;
+        }
+
+        .btn-toggle {
+            width: 100%;
+            text-align: left;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            color: #495057;
+            background: none;
+        }
+
+        .btn-toggle:hover,
+        .btn-toggle:focus {
+            color: #0d6efd;
+            background-color: rgba(13, 110, 253, 0.1);
+        }
+
+        .btn-toggle-nav .nav-link {
+            padding-left: 2rem;
+            color: #6c757d;
+        }
+
+        .btn-toggle-nav .nav-link:hover,
+        .btn-toggle-nav .nav-link.active {
+            color: #0d6efd;
+        }
+
+        /*Highlight active parent sections when a sub-section is active */ .nav-link.active-parent {
+            color: #0d6efd;
+            font-weight: 600;
+        }
+
+        .btn-toggle i {
+            margin-right: 8px;
+            /* Adjust this value for the desired spacing */
+        }
+
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 6px;
+        }
+
+        .alert-bg {
+            background-image: url('https://via.placeholder.com/1500x800?text=Emergency+Alert+Background');
+            background-size: cover;
+            color: white;
+        }
+
+        .alert-weather {
+            background-color: rgba(255, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+        }
+
+        .hero-section {
+            background-color: #f8f9fa;
+            padding: 60px;
+            text-align: center;
+        }
+
+        .hero-section img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .content-section {
+            padding: 40px;
+        }
+
+        .section-title {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .section-text {
+            margin-bottom: 20px;
+        }
+
+        .illustration {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .illustration img {
+            width: auto;
+            height: 300px;
+        }
+
+        .profile-pic-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 50px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #007bff;
+            cursor: pointer;
+        }
+
+        .profile-pic-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .profile-pic-container:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay i {
+            font-size: 2rem;
+        }
+
+        #profilePicInput {
+            display: none;
+        }
+
+        /* Drag and drop styling */
+        .drag-drop-box {
+            border: 2px dashed #007bff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .drag-drop-box:hover {
+            background-color: #f1f1f1;
+        }
+
+        .drag-drop-box p {
+            margin: 0;
+        }
+
+        /* Modal styling for preview */
+        .modal-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar p-3">
+        <a href="#" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+            <i class='bx bxs-ambulance' style="font-size: 30px;"></i>
+            <span class="fs-5 fw-semibold">SAMU DLA</span>
+        </a>
+        <ul class="list-unstyled ps-0" id="sidebar">
+            <!-- Home Section -->
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false" data-section="home">
+                    <i class="bx bx-home-alt me-2"></i>
+                    Home
+                </button>
+                <div class="collapse" id="home-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="home-overview">Overview</a></li>
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="home-news-updates">News & Updates</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#incidents-collapse" aria-expanded="false"
+                    data-section="active-incidents">
+                    <i class="bx bx-map me-2"></i>
+                    Active Incidents
+                </button>
+                <div class="collapse" id="incidents-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="incidents-current-emergencies">Current Emergencies</a></li>
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="incidents-map">Incident Map</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#alerts-collapse" aria-expanded="false"
+                    data-section="alerts">
+                    <i class="bx bx-bell me-2"></i>
+                    Alerts
+                </button>
+                <div class="collapse" id="alerts-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="alerts-emergency">Emergency Alerts</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#resources-collapse" aria-expanded="false"
+                    data-section="safety-resources">
+                    <i class="bx bx-first-aid me-2"></i>
+                    Safety Resources
+                </button>
+                <div class="collapse" id="resources-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="resources-first-aid">First Aid Tips</a></li>
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="resources-contacts">Emergency Contacts</a></li>
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="resources-evacuation">Evacuation Plans</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#report-collapse" aria-expanded="false"
+                    data-section="report-incident">
+                    <i id="icon" class='bx bx-comment-error'></i>
+                    Report an Incident
+                </button>
+                <div class="collapse" id="report-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="report-submit">Submit Report</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#help-collapse" aria-expanded="false"
+                    data-section="help-support">
+                    <i class="bx bx-help-circle me-2"></i>
+                    Help & Support
+                </button>
+                <div class="collapse" id="help-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="help-faqs">FAQs</a></li>
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="help-contact">Contact Support</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#about-collapse" aria-expanded="false"
+                    data-section="about">
+                    <i class="bx bx-info-circle me-2"></i>
+                    About
+                </button>
+                <div class="collapse" id="about-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="about-us">About Us</a></li>
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="about-terms">Terms & Privacy</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="border-top my-3"></li>
+
+            <!-- Account Section -->
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false"
+                    data-section="account">
+                    <i class="bx bx-user me-2"></i>
+                    Account
+                </button>
+                <div class="collapse" id="account-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="account-new">New...</a></li>
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="account-profile">Profile</a></li>
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="account-settings">Settings</a></li>
+                        <li><a href="#" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                data-section="account-signout">Sign out</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div id="home-overview" class="sub-section active">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Overview</li>
+                </ol>
+            </nav>
+            <h2>Home Overview</h2>
+            <p>Your Safety, Our Priority Always.</p>
+            <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+                <symbol id="check2" viewBox="0 0 16 16">
+                    <path
+                        d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z">
+                    </path>
+                </symbol>
+            </svg>
+
+
+            <div class="container my-5">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Jumbotron Section -->
+                        <div class="p-5 mb-4 text-white rounded-3" style="background-color: rgba(255, 0, 0, 0.7);">
+                            <h1 class="display-5">Emergency Response System Overview</h1>
+                            <p class="lead">Stay updated with real-time alerts and resources during emergency
+                                situations.</p>
+                        </div>
+
+                        <!-- Key Features Section -->
+                        <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+                            <!-- Real-time Emergency Alerts -->
+                            <div class="col">
+                                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+                                    style="background-image: url('unsplash-alerts.jpg');">
+                                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                                        <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Real-time Emergency Alerts
+                                        </h3>
+                                        <p class="card-text">Receive critical alerts instantly during emergencies,
+                                            helping you stay informed and take action.</p>
+                                        <ul class="d-flex list-unstyled mt-auto">
+                                            <li class="me-auto">
+                                                <i class="bx bx-bell fs-2"></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Interactive Incident Map -->
+                            <div class="col">
+                                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+                                    style="background-image: url('unsplash-map.jpg');">
+                                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                                        <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Interactive Incident Map</h3>
+                                        <p class="card-text">View an interactive map of ongoing incidents and get
+                                            detailed information on affected areas.</p>
+                                        <ul class="d-flex list-unstyled mt-auto">
+                                            <li class="me-auto">
+                                                <i class="bx bx-map fs-2"></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- First Aid Tips and Safety Resources -->
+                            <div class="col">
+                                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+                                    style="background-image: url('unsplash-firstaid.jpg');">
+                                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                                        <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">First Aid Tips and Safety
+                                            Resources</h3>
+                                        <p class="card-text">Access life-saving first aid tips and other safety
+                                            resources during an emergency.</p>
+                                        <ul class="d-flex list-unstyled mt-auto">
+                                            <li class="me-auto">
+                                                <i class="bx bx-first-aid fs-2"></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Emergency Contacts and Evacuation Plans -->
+                            <div class="col">
+                                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+                                    style="background-image: url('unsplash-contacts.jpg');">
+                                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                                        <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Emergency Contacts and
+                                            Evacuation Plans</h3>
+                                        <p class="card-text">Quickly find emergency contacts and follow evacuation plans
+                                            tailored to your location.</p>
+                                        <ul class="d-flex list-unstyled mt-auto">
+                                            <li class="me-auto">
+                                                <i class="bx bx-phone fs-2"></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Report Incidents with Ease -->
+                            <div class="col">
+                                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+                                    style="background-image: url('unsplash-report.jpg');">
+                                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                                        <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Report Incidents with Ease
+                                        </h3>
+                                        <p class="card-text">Easily report incidents and provide accurate information to
+                                            help emergency responders.</p>
+                                        <ul class="d-flex list-unstyled mt-auto">
+                                            <li class="me-auto">
+                                                <i class="bx bx-comment-error fs-2"></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mission Statement -->
+                        <div class="p-4 mt-4 bg-light text-dark rounded-3">
+                            <h4 class="mb-3">Our Mission</h4>
+                            <p>
+                                Our mission is to ensure public safety and provide you with the information you need to
+                                act quickly
+                                during emergencies. Stay safe and prepared by staying informed!
+                            </p>
+                            <a href="#" class="btn btn-primary mt-3">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="pt-3 mt-4 text-body-secondary border-top">
+                © 2024 SAMU DLA.
+            </footer>
+
+        </div>
+
+        <div id="home-news-updates" class="sub-section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">News & Updates</li>
+                </ol>
+            </nav>
+            <h2>News & Updates</h2>
+            <p>Stay Informed, Stay Prepared Daily.</p>
+            <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+                <symbol id="check2" viewBox="0 0 16 16">
+                    <path
+                        d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z">
+                    </path>
+                </symbol>
+            </svg>
+
+
+            <div class="container my-5">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Jumbotron for News and Updates -->
+                        <div class="p-5 mb-4 text-white rounded-3" style="background-color: rgba(255, 0, 0, 0.7);">
+                            <h1 class="display-5">Latest News and Updates</h1>
+                            <p class="lead">Stay informed about the latest developments, alerts, and resources in your
+                                area.</p>
+                        </div>
+
+                        <!-- News Item 1 -->
+                        <div class="row featurette mb-4">
+                            <div class="col-md-7">
+                                <h2 class="featurette-heading fw-normal lh-1">Emergency Alert: Severe Weather Incoming!
+                                    <span class="text-body-secondary">Stay Safe.</span>
+                                </h2>
+                                <p class="lead">A severe weather warning has been issued for your area. Ensure you have
+                                    emergency supplies ready and stay tuned for updates.</p>
+                            </div>
+                            <div class="col-md-5">
+                                <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+                                    width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img"
+                                    aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice"
+                                    focusable="false">
+                                    <title>Weather Alert</title>
+                                    <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect>
+                                    <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">Weather
+                                        Alert</text>
+                                </svg>
+                            </div>
+                        </div>
+                        <hr class="featurette-divider">
+
+                        <!-- News Item 2 -->
+                        <div class="row featurette mb-4">
+                            <div class="col-md-7 order-md-2">
+                                <h2 class="featurette-heading fw-normal lh-1">New Resources Available! <span
+                                        class="text-body-secondary">Check Them Out.</span></h2>
+                                <p class="lead">We have added new resources to help you prepare for emergencies. Visit
+                                    the resource section for more information.</p>
+                            </div>
+                            <div class="col-md-5 order-md-1">
+                                <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+                                    width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img"
+                                    aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice"
+                                    focusable="false">
+                                    <title>Resources</title>
+                                    <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect>
+                                    <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">New
+                                        Resources</text>
+                                </svg>
+                            </div>
+                        </div>
+                        <hr class="featurette-divider">
+
+                        <!-- News Item 3 -->
+                        <div class="row featurette mb-4">
+                            <div class="col-md-7">
+                                <h2 class="featurette-heading fw-normal lh-1">Community Safety Meeting <span
+                                        class="text-body-secondary">Join Us.</span></h2>
+                                <p class="lead">A community safety meeting will be held on Friday at 6 PM. Join us to
+                                    learn more about safety measures and resources in your area.</p>
+                            </div>
+                            <div class="col-md-5">
+                                <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+                                    width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img"
+                                    aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice"
+                                    focusable="false">
+                                    <title>Community Meeting</title>
+                                    <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect>
+                                    <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">Meeting</text>
+                                </svg>
+                            </div>
+                        </div>
+                        <hr class="featurette-divider">
+
+                        <!-- News Item 4 -->
+                        <div class="row featurette mb-4">
+                            <div class="col-md-7 order-md-2">
+                                <h2 class="featurette-heading fw-normal lh-1">Emergency Preparedness Tips <span
+                                        class="text-body-secondary">Be Ready.</span></h2>
+                                <p class="lead">Review our top emergency preparedness tips to ensure you and your family
+                                    are ready for any situation.</p>
+                            </div>
+                            <div class="col-md-5 order-md-1">
+                                <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+                                    width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img"
+                                    aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice"
+                                    focusable="false">
+                                    <title>Preparedness Tips</title>
+                                    <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect>
+                                    <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">Preparedness</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Add more news items as needed -->
+                <footer class="pt-3 mt-4 text-body-secondary border-top">
+                    © 2024 SAMU DLA.
+                </footer>
+            </div>
+
+        </div>
+
+        <div id="incidents-current-emergencies" class="sub-section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Active Incidents</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Current Emergencies</li>
+                </ol>
+            </nav>
+            <h2>Current Emergencies</h2>
+            <p>Immediate Awareness for Your Safety.</p>
+            <hr class="featurette-divider">
+            <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+                <symbol id="check2" viewBox="0 0 16 16">
+                    <path
+                        d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z">
+                    </path>
+                </symbol>
+            </svg>
+
+
+            <div class="container my-5">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Current Emergency Jumbotron -->
+                        <div class="p-5 mb-4 text-white rounded-3" style="background-color: rgba(255, 0, 0, 0.7);">
+                            <h1 class="display-5">Current Emergency Alert</h1>
+                            <p class="lead">A critical emergency is ongoing. Stay informed and follow necessary safety
+                                protocols.</p>
+                            <hr class="my-4">
+                            <p class="text-white">Check the latest updates and evacuation routes on the interactive
+                                incident map.</p>
+                            <a class="btn btn-light btn-lg" href="#" role="button">View Incident Map</a>
+                        </div>
+
+                        <!-- Emergency Details Section -->
+                        <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+                            <!-- Emergency Description -->
+                            <div class="col-lg-12">
+                                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+                                    style="background-image: url('unsplash-emergency.jpg');">
+                                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                                        <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Emergency Description</h3>
+                                        <p class="card-text">A severe weather event has been reported in your area,
+                                            leading to potential flooding and strong winds. Please stay indoors and
+                                            monitor updates from local authorities.</p>
+                                        <ul class="d-flex list-unstyled mt-auto">
+                                            <li class="me-auto">
+                                                <svg class="bi me-2" width="1em" height="1em">
+                                                    <use xlink:href="#geo-fill"></use>
+                                                </svg>
+                                                <small>Local Area</small>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Evacuation Routes -->
+                            <div class="col">
+                                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+                                    style="background-image: url('unsplash-routes.jpg');">
+                                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                                        <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Evacuation Routes</h3>
+                                        <p class="card-text">Follow the designated evacuation routes to ensure your
+                                            safety. Stay updated on any changes in the routes.</p>
+                                        <ul class="d-flex list-unstyled mt-auto">
+                                            <li class="me-auto">
+                                                <i class="bx bx-map fs-2"></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Safety Precautions -->
+                            <div class="col">
+                                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+                                    style="background-image: url('unsplash-safety.jpg');">
+                                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                                        <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Safety Precautions</h3>
+                                        <p class="card-text">Make sure to have emergency supplies ready, including food,
+                                            water, and first aid kits. Follow all safety guidelines provided by
+                                            authorities.</p>
+                                        <ul class="d-flex list-unstyled mt-auto">
+                                            <li class="me-auto">
+                                                <i class="bx bx-first-aid fs-2"></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Emergency Contacts -->
+                            <div class="col">
+                                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+                                    style="background-image: url('unsplash-contacts.jpg');">
+                                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                                        <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Emergency Contacts</h3>
+                                        <p class="card-text">Keep a list of emergency contacts handy, including local
+                                            emergency services and your family members.</p>
+                                        <ul class="d-flex list-unstyled mt-auto">
+                                            <li class="me-auto">
+                                                <i class="bx bx-phone fs-2"></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Call to Action -->
+                        <div class="p-4 mt-4 bg-light text-dark rounded-3">
+                            <h4 class="mb-3">Stay Informed</h4>
+                            <p>
+                                Regular updates will be provided as the situation develops. Please remain calm and stay
+                                indoors until it is safe to venture outside.
+                            </p>
+                            <a href="#" class="btn btn-primary mt-3">Get Latest Updates</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="pt-3 mt-4 text-body-secondary border-top">
+                © 2024 SAMU DLA.
+            </footer>
+        </div>
+
+        <div id="incidents-map" class="sub-section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Active Incidents</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Incident Map</li>
+                </ol>
+            </nav>
+            <h2>Incident Map</h2>
+            <p>Stay Alert, Stay Informed.</p>
+            <hr class="featurette-divider">
+            <svg xmlns="http://www.w3.org/2000/svg" class="d-none"></svg>
+            <symbol id="check2" viewBox="0 0 16 16">
+                <path
+                    d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z">
+                </path>
+            </symbol>
+            </svg>
+
+
+            <div class="container my-5">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Jumbotron for News and Updates -->
+                        <div class="p-5 mb-4 text-white rounded-3" style="background-color:rgba(255, 0, 0, 0.7);">
+                            <h1 class="display-5">Incident Map and Updates</h1>
+                            <p class="lead">Stay informed about the latest incidents in your area with our interactive
+                                incident map. Access real-time information, alerts, and resources to help you respond
+                                effectively.</p>
+
+                        </div>
+                        <div class="container my-5">
+                            <!-- Filter Options -->
+                            <div class="mb-3">
+                                <label for="incidentType" class="form-label">Filter by Incident Type</label>
+                                <select id="incidentType" class="form-select" onchange="filterMarkers()">
+                                    <option value="all">All Incidents</option>
+                                    <option value="flood">Flood</option>
+                                    <option value="fire">Wildfire</option>
+                                    <option value="earthquake">Earthquake</option>
+                                </select>
+                            </div>
+
+                            <!-- Map Section -->
+                            <div id="map"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="pt-3 mt-4 text-body-secondary border-top">
+                © 2024 SAMU DLA.
+            </footer>
+        </div>
+
+        <div id="alerts-emergency" class="sub-section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Alerts</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Emergency Alerts</li>
+                </ol>
+            </nav>
+            <h2>Emergency Alerts</h2>
+            <p>Timely Alerts, Stay Safe Today.</p>
+            <hr class="featurette-divider">
+            <div class="container py-4">
+                <svg href="http://www.w3.org/2000/svg" class="d-none">
+                    <!-- Icons for weather and alerts -->
+                    <symbol id="check2" viewBox="0 0 16 16">
+                        <path
+                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z">
+                        </path>
+                    </symbol>
+                    <symbol id="warning-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M8.982 1.566a1.5 1.5 0 0 0-2.764 0L.165 13.233C-.495 14.545.523 16 2.008 16h11.984c1.485 0 2.503-1.455 1.843-2.767L8.982 1.566zM8 5a.905.905 0 0 1 1.013.894l-.324 4.888c-.016.24-.244.478-.687.478-.443 0-.67-.238-.687-.478L7.013 5.894A.905.905 0 0 1 8 5zm.002 7.013a1.013 1.013 0 1 1 0 2.026 1.013 1.013 0 0 1 0-2.026z">
+                        </path>
+                    </symbol>
+                </svg>
+
+                <!-- Jumbotron for emergency alerts -->
+                <div class="p-5 mb-4 alert-bg rounded-3">
+                    <div class="container-fluid py-5">
+                        <h1 class="display-5 fw-bold">Weather Alert: Severe Thunderstorm</h1>
+                        <p class="col-md-8 fs-4">A severe thunderstorm warning has been issued for your
+                            area. Stay
+                            indoors and avoid travel unless absolutely necessary.</p>
+                        <button class="btn btn-danger btn-lg" type="button">View More Details</button>
+                    </div>
+                </div>
+
+                <!-- Weather forecast block -->
+                <div class="row align-items-md-stretch">
+                    <div class="col-md-6">
+                        <div class="h-100 p-5 alert-weather rounded-3">
+                            <h2>Current Weather</h2>
+                            <p>Temperature: 26°C | Condition: Rainy</p>
+                            <p>Wind Speed: 15 km/h | Humidity: 88%</p>
+                            <button class="btn btn-light" type="button">More Info</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+                            <h2>Prepare for Emergency</h2>
+                            <p>Keep an emergency kit ready and stay updated with the latest news and
+                                weather alerts.</p>
+                            <button class="btn btn-outline-secondary" type="button">Prepare Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <footer class="pt-3 mt-4 text-body-secondary border-top">
+                    © 2024 SAMU DLA.
+                </footer>
+            </div>
+        </div>
+
+
+        <div id="resources-first-aid" class="sub-section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Safety Resources</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">First Aid Tips</li>
+                </ol>
+            </nav>
+            <h2>First Aid Tips</h2>
+            <p>Quick Tips, Save Lives Fast.</p>
+            <hr class="featurette-divider">
+            <!-- First Aid Tips Jumbotron -->
+            <div class="p-5 mb-4 text-white rounded-3" style="background-color: rgba(255, 0, 0, 0.7);">
+                <h1 class="display-5">First Aid Tips and Resources</h1>
+                <p class="lead">Be prepared to act quickly in emergencies with essential first aid tips. Learn how to
+                    respond effectively to common injuries and medical situations.</p>
+                <hr class="my-4">
+                <p class="text-white">Access step-by-step guides and valuable resources to assist you in providing
+                    immediate care.</p>
+                <a class="btn btn-light btn-lg" href="#" role="button">View First Aid Guides</a>
+            </div>
+            <div class="container my-5">
+
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <!-- Tip 1: Treating Minor Cuts -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://via.placeholder.com/500x300.png?text=Minor+Cuts" class="card-img-top"
+                                alt="Minor Cuts">
+                            <div class="card-body">
+                                <h5 class="card-title">Treating Minor Cuts</h5>
+                                <p class="card-text">Clean the wound and apply a bandage to prevent
+                                    infection. Rinse
+                                    with water to remove dirt.</p>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tip 2: Treating Burns -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://via.placeholder.com/500x300.png?text=Burn+Treatment" class="card-img-top"
+                                alt="Burn Treatment">
+                            <div class="card-body">
+                                <h5 class="card-title">Treating Burns</h5>
+                                <p class="card-text">Cool the burn under running water for 10 minutes
+                                    and cover it with
+                                    a clean cloth.</p>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tip 3: Handling Fainting -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://via.placeholder.com/500x300.png?text=Handling+Fainting"
+                                class="card-img-top" alt="Handling Fainting">
+                            <div class="card-body">
+                                <h5 class="card-title">Handling Fainting</h5>
+                                <p class="card-text">Lay the person flat, elevate their legs, and ensure
+                                    they receive
+                                    fresh air.</p>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="pt-3 mt-4 text-body-secondary border-top">
+                © 2024 SAMU DLA.
+            </footer>
+        </div>
+        <div id="resources-contacts" class="sub-section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Safety Resources</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Emergency Contacts</li>
+                </ol>
+            </nav>
+            <h2>Emergency Contacts</h2>
+            <p>Help Is Just One Call.</p>
+            <hr class="featurette-divider">
+            <!-- Emergency Contacts Jumbotron -->
+            <div class="p-5 mb-4 text-white rounded-3" style="background-color: rgba(255, 0, 0, 0.7);">
+                <h1 class="display-5">Emergency Contacts and Evacuation Plans</h1>
+                <p class="lead">Have critical contacts and evacuation plans at your fingertips. Stay prepared and ensure
+                    your safety and that of your loved ones during emergencies.</p>
+                <hr class="my-4">
+                <p class="text-white">Access essential phone numbers and detailed evacuation routes tailored to your
+                    area.</p>
+            </div>
+            <div class="container my-5">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <!-- Contact 1: Fire Department -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://via.placeholder.com/500x300.png?text=Fire+Department" class="card-img-top"
+                                alt="Fire Department">
+                            <div class="card-body">
+                                <h5 class="card-title">Fire Department</h5>
+                                <p class="card-text">Call for fire emergencies and immediate assistance.
+                                </p>
+                                <a href="tel:+1234567890" class="btn btn-primary">Call Fire
+                                    Department</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact 2: Police Department -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://via.placeholder.com/500x300.png?text=Police+Department"
+                                class="card-img-top" alt="Police Department">
+                            <div class="card-body">
+                                <h5 class="card-title">Police Department</h5>
+                                <p class="card-text">Contact for criminal activity or safety concerns.
+                                </p>
+                                <a href="tel:+0987654321" class="btn btn-primary">Call Police
+                                    Department</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact 3: Ambulance Services -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://via.placeholder.com/500x300.png?text=Ambulance+Services"
+                                class="card-img-top" alt="Ambulance Services">
+                            <div class="card-body">
+                                <h5 class="card-title">Ambulance Services</h5>
+                                <p class="card-text">Call in case of medical emergencies and need for
+                                    urgent care.</p>
+                                <a href="tel:+1122334455" class="btn btn-primary">Call Ambulance</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact 4: Poison Control -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://via.placeholder.com/500x300.png?text=Poison+Control" class="card-img-top"
+                                alt="Poison Control">
+                            <div class="card-body">
+                                <h5 class="card-title">Poison Control</h5>
+                                <p class="card-text">Contact for assistance with poison-related
+                                    emergencies.</p>
+                                <a href="tel:+1029384756" class="btn btn-primary">Call Poison
+                                    Control</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="pt-3 mt-4 text-body-secondary border-top">
+                © 2024 SAMU DLA.
+            </footer>
+
+        </div>
+
+        <div id="resources-evacuation" class="sub-section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Safety Resources</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Evacuation Plans</li>
+                </ol>
+            </nav>
+            <h2>Evacuation Plans</h2>
+            <p>Plan Ahead, Escape Safely.</p>
+            <hr class="featurette-divider">
+            <div class="container my-5">
+                <div class="p-5 mb-4 text-white rounded-3" style="background-color: rgba(255, 0, 0, 0.7);">
+                    <div class="container-fluid py-5 text-center">
+                        <h1 class="display-5 fw-bold">Emergency Evacuation Plan</h1>
+                        <p class="lead">In the event of an emergency, follow the steps below to ensure a safe and
+                            organized evacuation.</p>
+                        <hr class="my-4">
+                        <p>Be aware of all exits, designated safe zones, and emergency contacts. Always remain calm and
+                            follow the instructions of emergency personnel.</p>
+                        <a class="btn btn-light btn-lg" href="#" role="button">View Full Evacuation Map</a>
+                    </div>
+                </div>
+
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <!-- Step 1: Know the Evacuation Routes -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://via.placeholder.com/500x300.png?text=Evacuation+Routes"
+                                class="card-img-top" alt="Evacuation Routes">
+                            <div class="card-body">
+                                <h5 class="card-title">Step 1: Know the Evacuation Routes</h5>
+                                <p class="card-text">Identify the nearest exits and safe routes to
+                                    evacuate. Always keep
+                                    this information handy.</p>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Follow the Alarm Signals -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://via.placeholder.com/500x300.png?text=Follow+Alarm+Signals"
+                                class="card-img-top" alt="Alarm Signals">
+                            <div class="card-body">
+                                <h5 class="card-title">Step 2: Follow the Alarm Signals</h5>
+                                <p class="card-text">In case of an alarm, follow the signals and proceed
+                                    to the nearest
+                                    safe evacuation point.</p>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Stay Calm and Assist Others -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://via.placeholder.com/500x300.png?text=Stay+Calm+and+Assist"
+                                class="card-img-top" alt="Stay Calm">
+                            <div class="card-body">
+                                <h5 class="card-title">Step 3: Stay Calm and Assist Others</h5>
+                                <p class="card-text">During evacuation, remain calm, avoid panic, and
+                                    assist others,
+                                    especially those who may need help.</p>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Gather at Designated Meeting Points -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://via.placeholder.com/500x300.png?text=Designated+Meeting+Points"
+                                class="card-img-top" alt="Meeting Points">
+                            <div class="card-body">
+                                <h5 class="card-title">Step 4: Gather at Designated Meeting Points</h5>
+                                <p class="card-text">Once outside, proceed to designated meeting points
+                                    and wait for
+                                    further instructions from authorities.</p>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Report Missing Persons -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://via.placeholder.com/500x300.png?text=Report+Missing+Persons"
+                                class="card-img-top" alt="Report Missing Persons">
+                            <div class="card-body">
+                                <h5 class="card-title">Step 5: Report Missing Persons</h5>
+                                <p class="card-text">Once at the meeting point, report any missing
+                                    individuals to the
+                                    authorities or your emergency contact team.</p>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 6: Wait for the All-Clear -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://via.placeholder.com/500x300.png?text=Wait+for+All-Clear"
+                                class="card-img-top" alt="Wait for All-Clear">
+                            <div class="card-body">
+                                <h5 class="card-title">Step 6: Wait for the All-Clear</h5>
+                                <p class="card-text">Remain at the meeting point until authorities give
+                                    the all-clear
+                                    signal to re-enter the building.</p>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="pt-3 mt-4 text-body-secondary border-top">
+                © 2024 SAMU DLA.
+            </footer>
+        </div>
+
+        <div id="report-submit" class="sub-section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Report an Incident</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Submit Report</li>
+                </ol>
+            </nav>
+            <h2>Submit Report</h2>
+            <p>Report Incidents, Help Us Respond.</p>
+            <hr class="featurette-divider">
+            <!-- Summit Report Jumbotron -->
+            <div class="p-5 mb-4 text-white rounded-3" style="background-color: rgba(255, 0, 0, 0.7);">
+                <h1 class="display-5">Submit Your Emergency Report</h1>
+                <p class="lead">Help us improve our emergency response by submitting your incident reports. Your input
+                    is crucial for enhancing safety measures.</p>
+                <hr class="my-4">
+                <p class="text-white">Please provide detailed information about the emergency situation to assist our
+                    response teams effectively.</p>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <div class="col-md-7 col-lg-8">
+                    <h4 class="mb-3">Emergency Details</h4>
+                    <form class="needs-validation" novalidate="">
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="firstName" class="form-label">First name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="" required="">
+                                <div class="invalid-feedback">
+                                    First name is required.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="lastName" class="form-label">Last name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="" required="">
+                                <div class="invalid-feedback">
+                                    Last name is required.
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="you@example.com"
+                                    required="">
+                                <div class="invalid-feedback">
+                                    Please enter a valid email address.
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" placeholder="e.g., +1234567890"
+                                    required="">
+                                <div class="invalid-feedback">
+                                    Phone number is required.
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="incident-type" class="form-label">Type of Emergency</label>
+                                <select class="form-select" id="incident-type" required="">
+                                    <option value="">Choose...</option>
+                                    <option>Fire</option>
+                                    <option>Medical Emergency</option>
+                                    <option>Accident</option>
+                                    <option>Natural Disaster</option>
+                                    <option>Other</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select the type of emergency.
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="description" class="form-label">Description of Incident</label>
+                                <textarea class="form-control" id="description"
+                                    placeholder="Provide details of the emergency" rows="5" required=""></textarea>
+                                <div class="invalid-feedback">
+                                    Please provide a description of the emergency.
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="address" class="form-label">Location of Incident</label>
+                                <input type="text" class="form-control" id="address"
+                                    placeholder="e.g., 1234 Main St, City" required="">
+                                <div class="invalid-feedback">
+                                    Please enter the location of the emergency.
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <label for="country" class="form-label">Country</label>
+                                <select class="form-select" id="country" required="">
+                                    <option value="">Choose...</option>
+                                    <option>United States</option>
+                                    <option>Canada</option>
+                                    <option>United Kingdom</option>
+                                    <option>Other</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a valid country.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="state" class="form-label">State/Province</label>
+                                <input type="text" class="form-control" id="state" placeholder="State/Province"
+                                    required="">
+                                <div class="invalid-feedback">
+                                    Please provide your state or province.
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="zip" class="form-label">Zip/Postal Code</label>
+                                <input type="text" class="form-control" id="zip" placeholder="" required="">
+                                <div class="invalid-feedback">
+                                    Zip code is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <h4 class="mb-3">Additional Information (Optional)</h4>
+                        <div class="col-12">
+                            <label for="evidence" class="form-label">Upload Supporting Evidence (e.g., images,
+                                videos)</label>
+                            <input type="file" class="form-control" id="evidence" multiple="">
+                            <small class="text-muted">You can attach images or videos related to the incident to help
+                                responders understand the situation better.</small>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <button class="w-100 btn btn-primary btn-lg" type="submit">Submit Emergency Report</button>
+                    </form>
+                </div>
+            </div>
+            <footer class="pt-3 mt-4 text-body-secondary border-top">
+                © 2024 SAMU DLA.
+            </footer>
+        </div>
+
+        <div id="help-faqs" class="sub-section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Help & Support</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">FAQs</li>
+                </ol>
+            </nav>
+            <h2>FAQs</h2>
+            <p>Answers Here, For Your Queries.</p>
+            <hr class="featurette-divider">
+            <section class="p-5">
+                <div class="container">
+                    <h2 class="text-center mb-4">Frequently Asked Questions (FAQ)</h2>
+                    <div class="accordion" id="faqAccordion">
+
+                        <!-- Question 1 -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="faqHeadingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faqCollapseOne" aria-expanded="true"
+                                    aria-controls="faqCollapseOne">
+                                    How do I submit an emergency report?
+                                </button>
+                            </h3>
+                            <div id="faqCollapseOne" class="accordion-collapse collapse show"
+                                aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    To submit an emergency report, simply navigate to the 'Submit Emergency Report'
+                                    section on the homepage. Fill out your details including name, contact information,
+                                    location, and a description of the emergency, then click 'Submit'. Our system will
+                                    process the report and dispatch it to the necessary responders.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="faqHeadingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faqCollapseTwo" aria-expanded="false"
+                                    aria-controls="faqCollapseTwo">
+                                    How can I find emergency contacts?
+                                </button>
+                            </h3>
+                            <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo"
+                                data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    To access emergency contacts, click on the 'Emergency Contacts' section on the
+                                    dashboard. You’ll find a list of contacts for police, fire departments, medical
+                                    assistance, and more, along with their phone numbers and details.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="faqHeadingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faqCollapseThree" aria-expanded="false"
+                                    aria-controls="faqCollapseThree">
+                                    How do I access first aid tips?
+                                </button>
+                            </h3>
+                            <div id="faqCollapseThree" class="accordion-collapse collapse"
+                                aria-labelledby="faqHeadingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    First aid tips can be found under the 'First Aid' section. We provide detailed
+                                    guidelines for different emergency situations such as burns, bleeding, choking, and
+                                    more. Follow these steps to administer first aid while waiting for professional
+                                    help.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Question 4 -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="faqHeadingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faqCollapseFour" aria-expanded="false"
+                                    aria-controls="faqCollapseFour">
+                                    What is the incident map and how does it work?
+                                </button>
+                            </h3>
+                            <div id="faqCollapseFour" class="accordion-collapse collapse"
+                                aria-labelledby="faqHeadingFour" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    The incident map provides real-time information about ongoing emergencies or
+                                    incidents in your area. You can view active alerts, reports, and response efforts
+                                    across various locations. This helps you stay informed and prepared for any
+                                    emergency situations near you.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Question 5 -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="faqHeadingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faqCollapseFive" aria-expanded="false"
+                                    aria-controls="faqCollapseFive">
+                                    How can I view the emergency evacuation plan?
+                                </button>
+                            </h3>
+                            <div id="faqCollapseFive" class="accordion-collapse collapse"
+                                aria-labelledby="faqHeadingFive" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    The emergency evacuation plan is accessible via the 'Evacuation Plan' section.
+                                    You’ll find a detailed guide with exit routes, safe assembly points, and
+                                    instructions for different types of emergencies like fires, earthquakes, or floods.
+                                    Make sure you familiarize yourself with this plan for your safety.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <footer class="pt-3 mt-4 text-body-secondary border-top">
+                © 2024 SAMU DLA.
+            </footer>
+        </div>
+
+        <div id="help-contact" class="sub-section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Help & Support</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Contact Support</li>
+                </ol>
+            </nav>
+            <h2>Contact Support</h2>
+            <p>We're Here, Ready to Help.</p>
+            <hr class="featurette-divider">
+            <section class="p-5" style="background-color: white; color: black;">
+                <div class="container">
+                    <h2 class="text-center mb-4">Contact Us</h2>
+                    <p class="lead text-center mb-5">Need help or have a question? We're here to assist you. Reach out
+                        to us through the form below, or contact us directly through our hotline or email.</p>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Contact Information</h4>
+                            <ul class="list-unstyled">
+                                <li><strong>Support Hotline:</strong> +1 (800) 123-4567</li>
+                                <li><strong>Email:</strong> support@emergencyresponse.com</li>
+                                <li><strong>Address:</strong> JFN-HUI D'la, Cameroun</li>
+                            </ul>
+                            <div class="illustration">
+                                <img src="illustration/undraw_contact_us_re_4qqt.svg" alt="Contact us illustration">
+                                <!-- Illustration for Data Collection -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h4>Send us a message</h4>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="name" placeholder="John Doe" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="email" placeholder="you@example.com"
+                                        required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Message</label>
+                                    <textarea class="form-control" id="message" rows="4"
+                                        placeholder="Enter your message here..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="pt-3 mt-4 text-body-secondary border-top">
+                © 2024 SAMU DLA.
+            </footer>
+        </div>
+
+        <div id="about-us" class="sub-section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">About</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">About Us</li>
+                </ol>
+            </nav>
+            <h2>About Us</h2>
+            <p>Committed to Community Safety Always.</p>
+            <hr class="featurette-divider">
+            <section id="about-us" class="py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h2 class="display-4 mb-4">About Us</h2>
+                            <p class="lead">At SAMU DLA, we are dedicated to revolutionizing emergency response systems.
+                                Our mission is to seamlessly integrate our advanced technology into every hospital
+                                across cities, ensuring swift and effective responses to emergencies.</p>
+                            <p>We strive to provide:</p>
+                            <ul>
+                                <li>Real-time emergency alerts and updates.</li>
+                                <li>Interactive incident mapping for accurate situational awareness.</li>
+                                <li>Direct communication channels for timely coordination.</li>
+                                <li>Efficient incident reporting and management solutions.</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <img src="illustration/undraw_team_spirit_re_yl1v.svg" class="img-fluid rounded" alt="About Us Image">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <footer class="pt-3 mt-4 text-body-secondary border-top">
+                © 2024 SAMU DLA.
+            </footer>
+        </div>
+
+        <div id="about-terms" class="sub-section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">About</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Terms & Privacy</li>
+                </ol>
+            </nav>
+            <h2>Terms & Privacy</h2>
+            <p>Your Data, Our Highest Priority.</p>
+            <hr class="featurette-divider">
+            <!-- Hero Section with Illustration -->
+            <div class="hero-section">
+                <img src="illustration/undraw_terms_re_6ak4.svg" alt="Privacy Illustration"> <!-- Illustration for Privacy -->
+                <h1>Terms of Service and Privacy Policy</h1>
+                <p>We are committed to protecting your personal information and ensuring a safe experience with our
+                    platform.</p>
+            </div>
+
+            <div class="container content-section">
+                <!-- 1. Acceptance of Terms -->
+                <div>
+                    <h2 class="section-title">1. Acceptance of Terms</h2>
+                    <p class="section-text">By using our Emergency Response System, you agree to these terms. If you do
+                        not agree, please do not use our platform.</p>
+                </div>
+
+                <!-- 2. Data Collection -->
+                <div>
+                    <h2 class="section-title">2. Data Collection</h2>
+                    <p class="section-text">We collect personal information, such as your name, email, and account
+                        information, when you create an account or interact with the system.</p>
+                    <div class="illustration">
+                        <img src="illustration/undraw_personal_data_re_ihde.svg" alt="Data Collection Illustration">
+                        <!-- Illustration for Data Collection -->
+                    </div>
+                    <p class="section-text">This data helps us ensure a personalized experience and provides access to
+                        key sections, such as New Account, Profile, Settings, and Sign Out.</p>
+                </div>
+
+                <!-- 3. Use of Data -->
+                <div>
+                    <h2 class="section-title">3. Use of Data</h2>
+                    <p class="section-text">The information we collect is strictly used for providing emergency response
+                        services and ensuring the smooth functioning of the system.</p>
+                    <p class="section-text">Your data helps us: set up user accounts, customize your experience, and
+                        improve our platform based on feedback. We do not use your personal data for advertising
+                        purposes or share it with third parties.</p>
+                </div>
+
+                <!-- 4. Data Security -->
+                <div>
+                    <h2 class="section-title">4. Data Security</h2>
+                    <p class="section-text">We take data security seriously. While no method of transmission over the
+                        internet is 100% secure, we follow industry standards to ensure data protection.</p>
+                    <div class="illustration">
+                        <img src="illustration/undraw_security_re_a2rk.svg" alt="Security Illustration">
+                        <!-- Illustration for Security -->
+                    </div>
+                </div>
+
+                <!-- 5. User Control -->
+                <div>
+                    <h2 class="section-title">5. User Control</h2>
+                    <p class="section-text">You have control over your data. You can update your profile or change
+                        settings at any time. You can also delete your account, and all associated data will be removed
+                        from our system.</p>
+                </div>
+
+                <!-- 6. Cookies and Tracking -->
+                <div>
+                    <h2 class="section-title">6. Cookies and Tracking</h2>
+                    <p class="section-text">We may use cookies to enhance your experience. You have the option to accept
+                        or decline cookies, though declining may limit the system's functionality.</p>
+                </div>
+
+                <!-- 7. Changes to the Policy -->
+                <div>
+                    <h2 class="section-title">7. Changes to the Policy</h2>
+                    <p class="section-text">We may update our terms and privacy policy from time to time. Any
+                        significant changes will be communicated through the platform or email. By continuing to use the
+                        system after changes, you accept the updated policy.</p>
+                </div>
+
+                <!-- 8. Contact Us -->
+                <div>
+                    <h2 class="section-title">8. Contact Us</h2>
+                    <p class="section-text">If you have any questions or concerns, feel free to contact us through the
+                        platform.</p>
+                    <div class="illustration">
+                        <img src="illustration/undraw_contact_us_re_4qqt.svg" alt="Contact Illustration">
+                        <!-- Illustration for Contact Us -->
+                    </div>
+                </div>
+            </div>
+
+            <footer class="pt-3 mt-4 text-body-secondary border-top">
+                © 2024 SAMU DLA.
+            </footer>
+        </div>
+
+        <div id="account-new" class="sub-section">
+            <h2>New Account</h2>
+            <p>Join Us, Stay Informed!</p>
+            <hr class="featurette-divider">
+            <!-- Create New Account Section -->
+            <div class="container mt-5">
+                <h2>Create New Account</h2>
+
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter your full name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password"
+                                    placeholder="Create a password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmPassword"
+                                    placeholder="Confirm your password">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create Account</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <footer class="pt-3 mt-4 text-body-secondary border-top">
+                © 2024 SAMU DLA.
+            </footer>
+        </div>
+
+        <div id="account-profile" class="sub-section">
+            <h2>Profile</h2>
+            <p>Your Safety, Your Identity.</p>
+            <hr class="featurette-divider">
+            <div class="container mt-5">
+                <h2>Account Information</h2>
+                <div class="container">
+                    <!-- Profile Picture Section -->
+                    <div class="profile-pic-container" id="profilePicContainer">
+                        <img src="default-profile.png" alt="Profile Picture" id="profilePic">
+                        <div class="overlay">
+                            <i class="bi bi-camera"></i>
+                        </div>
+                        <input type="file" accept="image/*" id="profilePicInput">
+                    </div>
+
+                    <!-- Drag-and-Drop Box -->
+                    <div class="drag-drop-box" id="dragDropBox">
+                        <p>Drag & Drop a profile picture here, or click to upload</p>
+                    </div>
+                </div>
+                <hr class="featurette-divider">
+                <!-- Modal for Previewing Profile Picture -->
+                <div class="modal fade" id="profilePicModal" tabindex="-1" aria-labelledby="profilePicModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="profilePicModalLabel">Confirm Profile Picture</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <img src="" alt="Preview" class="modal-img" id="modalProfilePic">
+                                <p class="mt-3">Is this the picture you'd like to use?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="confirmBtn">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Profile Information</h5>
+                        <form>
+                            <div class="mb-3">
+                                <label for="editName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="editName" value="John Doe">
+                            </div>
+                            <div class="mb-3">
+                                <label for="editEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="editEmail" value="john.doe@example.com">
+                            </div>
+                            <div class="mb-3">
+                                <label for="editPhone" class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="editPhone" value="+1234567890">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+                <hr class="featurette-divider">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Change Password</h5>
+                        <form>
+                            <div class="mb-3">
+                                <label for="currentPassword" class="form-label">Current Password</label>
+                                <input type="password" class="form-control" id="currentPassword">
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPassword" class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="newPassword">
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirm New
+                                    Password</label>
+                                <input type="password" class="form-control" id="confirmPassword">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Change Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <footer class="pt-3 mt-4 text-body-secondary border-top">
+                © 2024 SAMU DLA.
+            </footer>
+        </div>
+
+        <div id="account-settings" class="sub-section">
+            <h2>Settings</h2>
+            <p>Customize Your Emergency Experience.</p>
+            <hr class="featurette-divider">
+            <!-- Notification Settings Section -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Notification Settings</h5>
+                    <form>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="enableNotifications" checked>
+                            <label class="form-check-label" for="enableNotifications">Enable
+                                Notifications</label>
+                        </div>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="enableSMSAlerts">
+                            <label class="form-check-label" for="enableSMSAlerts">Enable SMS
+                                Alerts</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Notifications</button>
+                    </form>
+                </div>
+            </div>
+            <hr class="featurette-divider">
+            <!-- Phone Features Section -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Phone Features</h5>
+                    <form>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="enableFileUpload" checked>
+                            <label class="form-check-label" for="enableFileUpload">Enable File
+                                Uploads</label>
+                        </div>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="enableLocationSharing">
+                            <label class="form-check-label" for="enableLocationSharing">Enable Location
+                                Sharing</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Phone Features</button>
+                    </form>
+                </div>
+            </div>
+            <footer class="pt-3 mt-4 text-body-secondary border-top">
+                © 2024 SAMU DLA.
+            </footer>
+        </div>
+
+        <div id="account-signout" class="sub-section">
+            <h2>Sign Out</h2>
+            <p>Always Here, When Needed.</p>
+            <hr class="featurette-divider">
+            <div class="container py-5 text-center">
+                <h2>Confirm Sign Out</h2>
+                <p class="lead">Are you sure you want to sign out? Your session will be ended, and you'll need to log in
+                    again to access your account.</p>
+
+                <div class="d-flex justify-content-center">
+                    <a href="login.html" class="btn btn-danger me-2">Sign Out</a>
+                    <a href="profile.html" class="btn btn-secondary">Cancel</a>
+                </div>
+            </div>
+
+            <footer class="pt-3 mt-4 text-body-secondary border-top">
+                © 2024 SAMU DLA.
+            </footer>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebarLinks = document.querySelectorAll('#sidebar a.nav-link');
+            const sidebarButtons = document.querySelectorAll('#sidebar button.btn-toggle');
+            const sections = document.querySelectorAll('.section');
+            const subSections = document.querySelectorAll('.sub-section');
+            const breadcrumb = document.getElementById('breadcrumb-current');
+
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    // Remove 'active' class from all links
+                    sidebarLinks.forEach(item => item.classList.remove('active'));
+
+                    // Remove 'active-parent' from all buttons
+                    sidebarButtons.forEach(btn => btn.classList.remove('active-parent'));
+
+                    // Add 'active' class to the clicked link
+                    link.classList.add('active');
+
+                    // Determine the section to show
+                    const sectionId = link.getAttribute('data-section');
+                    const targetSection = document.getElementById(sectionId);
+
+                    // Hide all main sections and sub-sections
+                    sections.forEach(section => section.classList.remove('active'));
+                    subSections.forEach(sub => sub.classList.remove('active'));
+
+                    // Show the target sub-section
+                    targetSection.classList.add('active');
+
+                    // Update the breadcrumb
+                    breadcrumb.textContent = link.textContent.trim();
+
+                    // Highlight the parent button
+                    const parentButton = link.closest('.collapse').previousElementSibling;
+                    if (parentButton && parentButton.classList.contains('btn-toggle')) {
+                        parentButton.classList.add('active-parent');
+                    }
+                });
+            });
+
+            sidebarButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove 'active-parent' from all buttons except the clicked one if it's expanding
+                    if (button.getAttribute('aria-expanded') === 'false') {
+                        sidebarButtons.forEach(btn => btn.classList.remove('active-parent'));
+                        button.classList.add('active-parent');
+                    } else {
+                        button.classList.remove('active-parent');
+                    }
+                });
+            });
+
+            // Handle breadcrumb click to return to the Home section
+            breadcrumb.addEventListener('click', () => {
+                // Simulate clicking the Home link
+                const homeLink = document.querySelector('#sidebar a[data-section="home"]');
+                if (homeLink) {
+                    homeLink.click();
+                }
+            });
+        });
+
+        let map;
+        let markers = [];
+
+        function initMap() {
+            // Initialize the map
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -1.286389, lng: 36.817223 }, // Example: Nairobi, Kenya
+                zoom: 8,
+            });
+
+            // Incident data
+            const incidents = [
+                {
+                    position: { lat: -1.28333, lng: 36.81667 },
+                    type: "flood",
+                    description: "Flood Warning - High Severity",
+                    time: "Last updated: 10 minutes ago",
+                },
+                {
+                    position: { lat: -1.2921, lng: 36.8219 },
+                    type: "fire",
+                    description: "Wildfire Outbreak - Moderate Severity",
+                    time: "Last updated: 30 minutes ago",
+                },
+                {
+                    position: { lat: -1.2998, lng: 36.819 },
+                    type: "earthquake",
+                    description: "Earthquake Tremors - Low Severity",
+                    time: "Last updated: 15 minutes ago",
+                },
+            ];
+
+            // Create markers
+            incidents.forEach((incident) => {
+                const marker = new google.maps.Marker({
+                    position: incident.position,
+                    map,
+                    title: incident.type,
+                });
+
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `<div><strong>${incident.description}</strong><br>${incident.time}</div>`,
+                });
+
+                // Add click listener to show info window
+                marker.addListener("click", () => {
+                    infoWindow.open(map, marker);
+                });
+
+                // Store marker with its type
+                markers.push({
+                    marker: marker,
+                    type: incident.type,
+                });
+            });
+        }
+
+        // Filter markers based on incident type
+        function filterMarkers() {
+            const selectedType = document.getElementById("incidentType").value;
+
+            markers.forEach(({ marker, type }) => {
+                if (selectedType === "all" || selectedType === type) {
+                    marker.setMap(map); // Show marker
+                } else {
+                    marker.setMap(null); // Hide marker
+                }
+            });
+        }
+
+
+
+        // JavaScript to handle image upload, drag-and-drop, and preview
+        const profilePicContainer = document.getElementById('profilePicContainer');
+        const profilePicInput = document.getElementById('profilePicInput');
+        const profilePic = document.getElementById('profilePic');
+        const dragDropBox = document.getElementById('dragDropBox');
+        const modalProfilePic = document.getElementById('modalProfilePic');
+        const profilePicModal = new bootstrap.Modal(document.getElementById('profilePicModal'));
+        let selectedFile;
+
+        // Click on profile picture to open file input
+        profilePicContainer.addEventListener('click', () => {
+            profilePicInput.click();
+        });
+
+        // Image upload via file input
+        profilePicInput.addEventListener('change', handleImage);
+
+        // Drag and Drop
+        dragDropBox.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dragDropBox.classList.add('drag-over');
+        });
+
+        dragDropBox.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dragDropBox.classList.remove('drag-over');
+        });
+
+        dragDropBox.addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dragDropBox.classList.remove('drag-over');
+            selectedFile = e.dataTransfer.files[0];
+            showImagePreview(selectedFile);
+        });
+
+        dragDropBox.addEventListener('click', () => {
+            profilePicInput.click();
+        });
+
+        // Handle image selection (file input or drag-and-drop)
+        function handleImage(e) {
+            selectedFile = e.target.files[0];
+            showImagePreview(selectedFile);
+        }
+
+        // Show image preview in modal
+        function showImagePreview(file) {
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    modalProfilePic.src = e.target.result;
+                    profilePicModal.show();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('Please select a valid image file.');
+            }
+        }
+
+        // Confirm button in modal
+        document.getElementById('confirmBtn').addEventListener('click', () => {
+            profilePic.src = modalProfilePic.src;
+            profilePicModal.hide();
+        });
+    </script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+    </script>
+</body>
+
+</html>
