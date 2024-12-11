@@ -1,5 +1,5 @@
 # 🚑 SAMU Emergency Response System
-![Screenshot](illustration/image.png)
+![Screenshot](illustration/image.jpeg)
 
 The **SAMU (Service d'Aide Médicale d'Urgence)** web system is designed to streamline emergency response services for the city of Douala. Built with Bootstrap, this project demonstrates the practical application of modern web development to improve medical assistance and emergency management.
 
