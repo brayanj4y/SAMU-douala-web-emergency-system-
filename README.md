@@ -23,11 +23,11 @@ The **SAMU (Service d'Aide Médicale d'Urgence)** web system is designed to stre
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/samu-emergency-system.git
+   git clone https://github.com/brayanj4y/SAMU-douala-web-emergency-system.git
 2. Navigate to the project directory:
    ```bash
-   cd samu-emergency-system
-Open ``index.html`` in a browser to view the application.
+   cd SAMU-douala-web-emergency-system
+Open ``main.html`` in a browser to view the application.
 
 ## 👯 Contribution
 
