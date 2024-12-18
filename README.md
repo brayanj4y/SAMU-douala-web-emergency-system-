@@ -37,9 +37,9 @@ Contributions are welcome! Feel free to fork the repository, create a branch, an
 
 Have questions or suggestions? Feel free to reach out!
 
-- **Email:** [souopsylvain@gmail.com](mailto:souopsylvain@gmail.com)
-- **GitHub:** [github.com/brayanj4y](https://github.com/brayanj4y)
-- **LinkedIn:** [linkedin.com/in/brayanj4y](https://linkedin.com/in/brayanj4y)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/brayan-j4y)  
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/brayanj4y)  
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:souopsylvain@gmail.com) 
 
 I’d love to hear your feedback and ideas. Let's build something great together!
 Thank you for helping improve this project! Your contributions are appreciated. 🎉
